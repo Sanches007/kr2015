@@ -12,7 +12,7 @@ public class Money {
 	Doroga d;
 
 	public Rectangle getRect() {
-		return new Rectangle(x, y, 70, 70);
+		return new Rectangle(x, y, 75, 77);
 	}
 
 	public Money(int x, int y, Doroga d) {

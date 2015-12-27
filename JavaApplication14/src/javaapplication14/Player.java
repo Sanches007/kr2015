@@ -3,26 +3,25 @@ import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
 
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 
 public class Player {
 
-	public static final int MAX_V = 70;
-	public static final int MAX_TOP = 10;
-	public static final int MAX_BOTTOM = 400;
-	int h = 70, w = 70;
+	public static final int MAX_UP = 20;
+	public static final int MAX_DOWN = 450;
+	int h = 90, w = 100;
+	String login;
 	Image img_c = new ImageIcon("res/Camel.gif").getImage();
-
 
 	public Player() {
 
 	}
 
 	public Rectangle getRect() {
-		return new Rectangle(x, y, h, w);
+		return new Rectangle(x+20, y+5, w-20,h-30);
 	}
 
-	int v = 15;
-	int dv = 0;
+	int v = 18;
 	int s;
 	int score = 0;
 	int life = 0;
@@ -30,7 +29,7 @@ public class Player {
 	int layer1 = 0;
 	int layer2 = 1100;
 
-	int x = 50;
+	int x = 20;
 	int y = 200;
 	int dy = 0;
 
@@ -53,20 +52,18 @@ public class Player {
 	public void move() {
 
 		s += v;
-		v += dv;
-		if (v <= 0)
-			v = 0;
-		if (v >= MAX_V)
-			v = MAX_V;
-		y -= dy;
+		if(v!=0)
 		score++;
-
-		if (y <= MAX_TOP)
-			y = MAX_TOP;
-		if (y >= MAX_BOTTOM)
-			y = MAX_BOTTOM;
+		
+		y+=dy;
+		if (y <= MAX_UP){
+			y = MAX_UP;}
+		
+		if (y >= MAX_DOWN){
+			y = MAX_DOWN;}
+		
 		if (layer2 - v <= 0) {
-			layer1 = 0;
+			layer1 = 0 ;
 			layer2 = 1100;
 		} else {
 			layer1 -= v;
@@ -77,23 +74,26 @@ public class Player {
 	public void keyPressed(KeyEvent e) {
 		int key = e.getKeyCode();
 		if (key == KeyEvent.VK_UP) {
-			dy = 13;
-			h = 101;
-			w = 109;
+			dy = -13;
+
 		}
 		if (key == KeyEvent.VK_DOWN) {
-			dy = -13;
-			h = 101;
-			w = 109;
-		}
+			dy = 13;
 
+		}
+		
+		if ((key == KeyEvent.VK_SPACE)&&(v==18)) {
+			v=0;
+			JOptionPane.showMessageDialog(null, " Pause" );
+			v=18;
+		}
+		
 	}
 
 	public void keyReleased(KeyEvent e) {
 		int key = e.getKeyCode();
 		if ((key == KeyEvent.VK_UP) || (key == KeyEvent.VK_DOWN)) {
-			dy = 0;
-
+			dy=0;
 		}
 	}
 

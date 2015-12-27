@@ -12,7 +12,7 @@ public class Life {
 	Doroga d;
 
 	public Rectangle getRect() {
-		return new Rectangle(x, y, 60, 70);
+		return new Rectangle(x, y, 61, 80);
 	}
 
 	public Life(int x, int y, Doroga d) {
@@ -24,5 +24,6 @@ public class Life {
 	public void move() {
 		x = x - d.p.v;
 	}
+
 
 }

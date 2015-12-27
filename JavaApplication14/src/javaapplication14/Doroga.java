@@ -27,7 +27,7 @@ public class Doroga extends JPanel implements ActionListener, Runnable {
 	File file = new File("Score.txt");
 	Vector<Integer> vec = new Vector<Integer>();
 	Image img = new ImageIcon("res/101443739.jpg").getImage();
-	Main main = new Main();
+	Main main;
 	Player p = new Player();
 
 	Thread enFactory = new Thread(this);
@@ -54,6 +54,7 @@ public class Doroga extends JPanel implements ActionListener, Runnable {
 		public void keyReleased(KeyEvent e) {
 			p.keyReleased(e);
 		}
+		
 	}
 
 	public void paint(Graphics g) {
@@ -115,14 +116,12 @@ public class Doroga extends JPanel implements ActionListener, Runnable {
 			Vrag e = i.next();
 			if (p.getRect().intersects(e.getRect())) {
 				if (getlife() == true) {
-					audioThread.stop();
 					audioThread2.start();
 					JOptionPane.showMessageDialog(null, "Конец игры !\nТвой счет = " + p.getScore() / 20);
 					vec.add(p.getScore() / 10);
+					main.f.dispose();	
 					System.exit(0);
-					
-				} else {
-					
+				} else {			
 					i.remove();
 				}
 			}
@@ -174,15 +173,15 @@ public class Doroga extends JPanel implements ActionListener, Runnable {
 			int i = 0;
 			while(true){
 			try {
-				i = rand.nextInt(100);
-				if (i < 50) {
+				i = rand.nextInt(100)+10;
+				if (i < 85) {
 					vrag.add(new Vrag(1100, rand.nextInt(400), this));
 					Thread.sleep(rand.nextInt(500) + 100);
-				} else if ((i > 50) && (i < 85)) {
-					money.add(new Money(1100, rand.nextInt(400), this));
-					Thread.sleep(rand.nextInt(500) + 500);
-				} else if (i > 85) {
-					life.add(new Life(1100, rand.nextInt(400), this));
+				} else if ((i >85) && (i < 105)) {
+					money.add(new Money(1200, rand.nextInt(400), this));
+					Thread.sleep(rand.nextInt(500) + 300);
+				} else if (i > 105) {
+					life.add(new Life(1300, rand.nextInt(400), this));
 					Thread.sleep(rand.nextInt(500) + 1000);
 				}
 
@@ -207,7 +206,6 @@ public class Doroga extends JPanel implements ActionListener, Runnable {
 		try {
 			writer = new PrintWriter(file);
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
