@@ -7,34 +7,31 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.io.File;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
-
-import java.util.Vector;
-
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
-public class Doroga extends JPanel implements ActionListener, Runnable {
+
+public class Doroga2 extends JPanel implements ActionListener, Runnable{
 	Timer mainTimer = new Timer(30, this);
 	Image img = new ImageIcon("res/101443739.jpg").getImage();
 	Main main;
-	Player p = new Player();
+	Player2 p = new Player2();
 
 	Thread enFactory = new Thread(this);
 	Thread audioThread = new Thread(new Audio());
 	Thread audioThread2 = new Thread(new Audio2());
 
-	List<Vrag> vrag = new ArrayList<Vrag>();
-	List<Money> money = new ArrayList<Money>();
-	List<Life> life = new ArrayList<Life>();
+	List<Vrag2> vrag2 = new ArrayList<Vrag2>();
+	List<Money2> money2 = new ArrayList<Money2>();
+	List<Life2> life2 = new ArrayList<Life2>();
 
-	public Doroga() {
+	public Doroga2() {
 		mainTimer.start();
 		enFactory.start();
 		addKeyListener(new MyKeyAdapter());
@@ -55,8 +52,8 @@ public class Doroga extends JPanel implements ActionListener, Runnable {
 
 	public void paint(Graphics g) {
 		g = (Graphics2D) g;
-		g.drawImage(img, p.layer1, 0, null);
-		g.drawImage(img, p.layer2, 0, null);
+		g.drawImage(img,0, p.layer1, null);
+		g.drawImage(img, 0,p.layer2, null);
 		g.drawImage(p.img_c, p.x, p.y, null);
 
 		g.setColor(Color.WHITE);
@@ -65,30 +62,30 @@ public class Doroga extends JPanel implements ActionListener, Runnable {
 
 		g.drawString("Пройденное расстояние " + p.getScore() / 20, 20, 20);
 		g.drawString("Жизнь -  " + p.getLife(), 300, 20);
-		Iterator<Vrag> i = vrag.iterator();
+		Iterator<Vrag2> i = vrag2.iterator();
 		while (i.hasNext()) {
-			Vrag e = i.next();
-			if (e.x >= 2400 || e.x <= -2400) {
+			Vrag2 e = i.next();
+			if (e.y >= 1200 || e.y <= -1200) {
 				i.remove();
 			} else {
 				e.move();
 				g.drawImage(e.img, e.x, e.y, null);
 			}
 		}
-		Iterator<Money> j = money.iterator();
+		Iterator<Money2> j = money2.iterator();
 		while (j.hasNext()) {
-			Money e = j.next();
-			if (e.x >= 2400 || e.x <= -2400) {
+			Money2 e = j.next();
+			if (e.y >= 1200 || e.y <= -1200) {
 				j.remove();
 			} else {
 				e.move();
 				g.drawImage(e.img, e.x, e.y, null);
 			}
 		}
-		Iterator<Life> y = life.iterator();
+		Iterator<Life2> y = life2.iterator();
 		while (y.hasNext()) {
-			Life e = y.next();
-			if (e.x >= 2400 || e.x <= -2400) {
+			Life2 e = y.next();
+			if (e.y >= 1200 || e.y <= -1200) {
 				y.remove();
 			} else {
 				e.move();
@@ -107,9 +104,9 @@ public class Doroga extends JPanel implements ActionListener, Runnable {
 	}
 
 	private void testCollisionWithEnemies() {
-		Iterator<Vrag> i = vrag.iterator();
+		Iterator<Vrag2> i = vrag2.iterator();
 		while (i.hasNext()) {
-			Vrag e = i.next();
+			Vrag2 e = i.next();
 			if (p.getRect().intersects(e.getRect())) {
 				if (getlife() == true) {
 					audioThread2.start();
@@ -134,9 +131,9 @@ public class Doroga extends JPanel implements ActionListener, Runnable {
 	}
 
 	private void testCollisionWithEnemies2() {
-		Iterator<Money> i = money.iterator();
+		Iterator<Money2> i = money2.iterator();
 		while (i.hasNext()) {
-			Money e = i.next();
+			Money2 e = i.next();
 			if (p.getRect().intersects(e.getRect())) {
 				p.setScore(p.score + 200);
 				i.remove();
@@ -147,9 +144,9 @@ public class Doroga extends JPanel implements ActionListener, Runnable {
 	}
 
 	private void testCollisionWithEnemies3() {
-		Iterator<Life> i = life.iterator();
+		Iterator<Life2> i = life2.iterator();
 		while (i.hasNext()) {
-			Life e = i.next();
+			Life2 e = i.next();
 			if (p.getRect().intersects(e.getRect())) {
 				p.life++;
 				p.setLife(p.life);
@@ -168,14 +165,14 @@ public class Doroga extends JPanel implements ActionListener, Runnable {
 			try {
 				i = rand.nextInt(100) + 10;
 				if (i < 85) {
-					vrag.add(new Vrag(1100, rand.nextInt(400), this));
-					Thread.sleep(rand.nextInt(500) + 100);
+					vrag2.add(new Vrag2(rand.nextInt(1000), 600, this));
+					Thread.sleep(rand.nextInt(300) + 100);
 				} else if ((i > 85) && (i < 105)) {
-					money.add(new Money(1200, rand.nextInt(400), this));
-					Thread.sleep(rand.nextInt(500) + 300);
+					money2.add(new Money2(rand.nextInt(1100),700, this));
+					Thread.sleep(rand.nextInt(300) + 300);
 				} else if (i > 105) {
-					life.add(new Life(1300, rand.nextInt(400), this));
-					Thread.sleep(rand.nextInt(500) + 1000);
+					life2.add(new Life2(rand.nextInt(1200), 800, this));
+					Thread.sleep(rand.nextInt(300) + 1000);
 				}
 
 			} catch (InterruptedException e) {
@@ -183,5 +180,4 @@ public class Doroga extends JPanel implements ActionListener, Runnable {
 			}
 		}
 	}
-
 }
