@@ -112,15 +112,15 @@ public class Doroga extends JPanel implements ActionListener, Runnable {
 			Vrag e = i.next();
 			if (p.getRect().intersects(e.getRect())) {
 				if (getlife() == true) {
+					audioThread.stop();
 					audioThread2.start();
-					JOptionPane.showMessageDialog(null, "Конец игры !\nТвой счет = " + p.getScore() / 20);				
+					JOptionPane.showMessageDialog(null, "Конец игры !\nТвой счет = " + p.getScore() / 20);
 					System.exit(0);
 				} else {
 					i.remove();
 				}
 			}
 		}
-
 	}
 
 	public boolean getlife() {

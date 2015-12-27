@@ -16,8 +16,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
-
-public class Doroga2 extends JPanel implements ActionListener, Runnable{
+public class Doroga2 extends JPanel implements ActionListener, Runnable {
 	Timer mainTimer = new Timer(30, this);
 	Image img = new ImageIcon("res/101443739.jpg").getImage();
 	Main main;
@@ -52,8 +51,8 @@ public class Doroga2 extends JPanel implements ActionListener, Runnable{
 
 	public void paint(Graphics g) {
 		g = (Graphics2D) g;
-		g.drawImage(img,0, p.layer1, null);
-		g.drawImage(img, 0,p.layer2, null);
+		g.drawImage(img, 0, p.layer1, null);
+		g.drawImage(img, 0, p.layer2, null);
 		g.drawImage(p.img_c, p.x, p.y, null);
 
 		g.setColor(Color.WHITE);
@@ -109,8 +108,9 @@ public class Doroga2 extends JPanel implements ActionListener, Runnable{
 			Vrag2 e = i.next();
 			if (p.getRect().intersects(e.getRect())) {
 				if (getlife() == true) {
+					audioThread.stop();
 					audioThread2.start();
-					JOptionPane.showMessageDialog(null, "Конец игры !\nТвой счет = " + p.getScore() / 20);				
+					JOptionPane.showMessageDialog(null, "Конец игры !\nТвой счет = " + p.getScore() / 20);
 					System.exit(0);
 				} else {
 					i.remove();
@@ -168,7 +168,7 @@ public class Doroga2 extends JPanel implements ActionListener, Runnable{
 					vrag2.add(new Vrag2(rand.nextInt(1000), 600, this));
 					Thread.sleep(rand.nextInt(300) + 100);
 				} else if ((i > 85) && (i < 105)) {
-					money2.add(new Money2(rand.nextInt(1100),700, this));
+					money2.add(new Money2(rand.nextInt(1100), 700, this));
 					Thread.sleep(rand.nextInt(300) + 300);
 				} else if (i > 105) {
 					life2.add(new Life2(rand.nextInt(1200), 800, this));

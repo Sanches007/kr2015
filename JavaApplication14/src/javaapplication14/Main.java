@@ -1,7 +1,6 @@
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
@@ -10,10 +9,6 @@ import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.PrintWriter;
-import java.util.Scanner;
-
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -34,12 +29,11 @@ public class Main {
 	JFrame f;
 	Player p;
 	int flag = 1;
-	int i=0;
+	int i = 0;
 	Doroga d;
 	Doroga2 d2;
 	Player p1 = new Player();
-	Player2 p2= new Player2();
-	String login;
+	Player2 p2 = new Player2();
 	File file = new File("res/Score.txt");
 	String[][] mass = new String[1000][2];
 	String[] headers = { "Name", "Score" };
@@ -50,7 +44,7 @@ public class Main {
 
 	public Main() {
 		f = new JFrame("Games");
-		f.setSize(200, 200);
+		f.setSize(350, 150);
 		f.setLocationRelativeTo(null);
 		f.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		login();
@@ -62,52 +56,75 @@ public class Main {
 
 	public void login() {
 		JPanel g = new JPanel(new GridLayout(3, 1));
-		JLabel l = new JLabel("Enter your nickname =)");
+		JLabel l = new JLabel();
+		l.setFocusable(false);
+		l.setIcon(new ImageIcon("res/enter.png"));
 		l.setHorizontalAlignment(SwingConstants.CENTER);
 		l.setFont(new Font("TimesRoman", Font.BOLD, 15));
 		JTextArea l2 = new JTextArea();
 		l2.setOpaque(true);
 		l2.setEditable(true);
 		l2.setBorder(new LineBorder(Color.BLACK, 2));
-		JButton b = new JButton("Apply");
-		b.setOpaque(true);
+
+		JButton b = new JButton();
+		b.setBorderPainted(false);
+		b.setContentAreaFilled(false);
+		b.setFocusable(false);
+		b.setIcon(new ImageIcon("res/apply.png"));
+
 		g.add(l);
 		g.add(l2);
-		g.add(b);	
+		g.add(b);
 		g.setForeground(Color.BLACK);
 		g.setOpaque(false);
 		g.setVisible(true);
 		f.add(g);
-		
-		
-		
+
 		b.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				f.dispose();
 				f.repaint();
-				login=l2.getText();
-				menu(login);
+				menu();
 				f.setVisible(true);
 			}
 		});
 
 	}
-	
 
-	public void menu(String s) {
+	public void menu() {
 		f = new JFrame("Games");
-		f.setSize(468, 468);
+		f.setSize(468, 600);
 		f.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		f.setLocationRelativeTo(null);
 		Toolkit k = Toolkit.getDefaultToolkit();
 		Image img = k.getImage("res/vintazh_33.jpg");
 		f.setIconImage(img);
 
-		JButton b1 = new JButton("New game");
-		JButton b2 = new JButton("High score");
-		JButton b3 = new JButton("Settings");
-		JButton b4 = new JButton("About");
-		JButton b5 = new JButton("Exit");
+		JButton b1 = new JButton();
+		b1.setBorderPainted(false);
+		b1.setContentAreaFilled(false);
+		b1.setFocusable(false);
+		b1.setIcon(new ImageIcon("res/new_game.png"));
+		JButton b2 = new JButton();
+		b2.setBorderPainted(false);
+		b2.setContentAreaFilled(false);
+		b2.setFocusable(false);
+		b2.setIcon(new ImageIcon("res/high_score.png"));
+		JButton b3 = new JButton();
+		b3.setBorderPainted(false);
+		b3.setContentAreaFilled(false);
+		b3.setFocusable(false);
+		b3.setIcon(new ImageIcon("res/settings.png"));
+		JButton b4 = new JButton();
+		b4.setBorderPainted(false);
+		b4.setContentAreaFilled(false);
+		b4.setFocusable(false);
+		b4.setIcon(new ImageIcon("res/about.png"));
+		JButton b5 = new JButton();
+		b5.setBorderPainted(false);
+		b5.setContentAreaFilled(false);
+		b5.setFocusable(false);
+		b5.setIcon(new ImageIcon("res/exit.png"));
 
 		JPanel menu = new JPanel(new GridLayout(5, 1));
 
@@ -117,7 +134,9 @@ public class Main {
 		menu.add(b4);
 		menu.add(b5);
 
-		JLabel lab = new JLabel("Hello  "+ s);
+		JLabel lab = new JLabel();
+		lab.setFocusable(false);
+		lab.setIcon(new ImageIcon("res/hello.png"));
 		lab.setHorizontalAlignment(SwingConstants.CENTER);
 		lab.setFont(new Font("TimesRoman", Font.BOLD, 15));
 		JLabel im = new JLabel();
@@ -183,14 +202,14 @@ public class Main {
 		f = new JFrame("Games");
 		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		f.setSize(1100, 600);
-		if(flag==1){
-			d =new Doroga();
+		if (flag == 1) {
+			d = new Doroga();
 			f.add(d);
-		}else{
-			d2=new Doroga2();
+		} else {
+			d2 = new Doroga2();
 			f.add(d2);
 		}
-			
+
 		f.setLocationRelativeTo(null);
 		Toolkit k = Toolkit.getDefaultToolkit();
 		Image img = k.getImage("res/vintazh_33.jpg");
@@ -199,14 +218,16 @@ public class Main {
 
 	public void about() {
 		f = new JFrame("Games");
-		f.setSize(468, 468);
+		f.setSize(468, 500);
 		f.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		f.setLocationRelativeTo(null);
 		Toolkit k = Toolkit.getDefaultToolkit();
 		Image img = k.getImage("res/vintazh_33.jpg");
 		f.setIconImage(img);
 
-		JLabel pen = new JLabel("About");
+		JLabel pen = new JLabel();
+		pen.setFocusable(false);
+		pen.setIcon(new ImageIcon("res/about.png"));
 		pen.setHorizontalAlignment(SwingConstants.CENTER);
 		pen.setBorder(new LineBorder(Color.BLACK, 2));
 		pen.setPreferredSize(new Dimension(100, 50));
@@ -270,7 +291,11 @@ public class Main {
 		penel.add(t4);
 		penel.add(pp3);
 
-		JButton but = new JButton("Close");
+		JButton but = new JButton();
+		but.setBorderPainted(false);
+		but.setContentAreaFilled(false);
+		but.setFocusable(false);
+		but.setIcon(new ImageIcon("res/close.png"));
 		pen.setDoubleBuffered(false);
 
 		f.add(pen, BorderLayout.NORTH);
@@ -282,7 +307,7 @@ public class Main {
 			public void actionPerformed(ActionEvent arg0) {
 				f.dispose();
 				f.repaint();
-				menu(login);
+				menu();
 				f.setVisible(true);
 			}
 		});
@@ -297,7 +322,9 @@ public class Main {
 		Image img = k.getImage("res/vintazh_33.jpg");
 		f.setIconImage(img);
 
-		JLabel pen = new JLabel("Settings");
+		JLabel pen = new JLabel();
+		pen.setFocusable(false);
+		pen.setIcon(new ImageIcon("res/settings.png"));
 		pen.setHorizontalAlignment(SwingConstants.CENTER);
 		pen.setBorder(new LineBorder(Color.BLACK, 2));
 		pen.setPreferredSize(new Dimension(100, 50));
@@ -312,33 +339,34 @@ public class Main {
 		JTextArea pe1 = null;
 		JTextArea pe2 = null;
 		String i;
-		if(flag==1){
-			i=Integer.toString(p1.getV());
+		if (flag == 1) {
+			i = Integer.toString(p1.getV());
 			pe1 = new JTextArea(i);
-		}else{
-			i=Integer.toString(p2.getV());
+		} else {
+			i = Integer.toString(p2.getV());
 			pe2 = new JTextArea(i);
 		}
 		pen.setHorizontalAlignment(SwingConstants.CENTER);
 		pen.setFont(new Font("TimesRoman", Font.BOLD, 15));
-		JButton but = new JButton("Close");
+		JButton but = new JButton();
+		but.setBorderPainted(false);
+		but.setContentAreaFilled(false);
+		but.setFocusable(false);
+		but.setIcon(new ImageIcon("res/close.png"));
 
-		
-		
 		JLabel m1 = new JLabel();
 		JLabel m2 = new JLabel();
-		
 
 		JButton b1 = new JButton("Больше");
 		JButton b2 = new JButton("Меньше");
-		
+
 		pan2.add(m1);
 		pan2.add(pen2);
 		pan2.add(m2);
 		pan2.add(b2);
-		if(flag==1){
+		if (flag == 1) {
 			pan2.add(pe1);
-		}else{
+		} else {
 			pan2.add(pe2);
 		}
 		pan2.add(b1);
@@ -349,12 +377,12 @@ public class Main {
 		JRadioButton r1 = new JRadioButton("Горизонтальный бег");
 		JRadioButton r2 = new JRadioButton("Вертикальный бег");
 
-		if(flag==1){
+		if (flag == 1) {
 			r1.setSelected(true);
-		}else{
+		} else {
 			r2.setSelected(true);
 		}
-		
+
 		p4.add(r1);
 		p4.add(r2);
 
@@ -368,7 +396,7 @@ public class Main {
 			public void actionPerformed(ActionEvent e) {
 				if (r2.isSelected())
 					r2.setSelected(false);
-					flag=1;
+				flag = 1;
 			}
 		});
 
@@ -376,7 +404,7 @@ public class Main {
 			public void actionPerformed(ActionEvent e) {
 				if (r1.isSelected())
 					r1.setSelected(false);
-					flag=2;
+				flag = 2;
 			}
 		});
 
@@ -384,8 +412,8 @@ public class Main {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				f.repaint();
-				p1.v=p1.v+1;
-				p2.setV(p2.getV()+1);
+				p1.v = p1.v + 1;
+				p2.setV(p2.getV() + 1);
 			}
 		});
 
@@ -393,10 +421,9 @@ public class Main {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				f.repaint();
-				p1.setV(p1.getV()-1);
-				p2.setV(p2.getV()-1);
-				
-				
+				p1.setV(p1.getV() - 1);
+				p2.setV(p2.getV() - 1);
+
 			}
 		});
 
@@ -405,7 +432,7 @@ public class Main {
 			public void actionPerformed(ActionEvent arg0) {
 				f.dispose();
 				f.repaint();
-				menu(login);
+				menu();
 				f.setVisible(true);
 			}
 		});
@@ -420,13 +447,19 @@ public class Main {
 		Image img = k.getImage("res/vintazh_33.jpg");
 		f.setIconImage(img);
 
-		JLabel pen = new JLabel("High Score");
+		JLabel pen = new JLabel();
+		pen.setFocusable(false);
+		pen.setIcon(new ImageIcon("res/high_score.png"));
 		pen.setHorizontalAlignment(SwingConstants.CENTER);
 		pen.setBorder(new LineBorder(Color.BLACK, 2));
 		pen.setPreferredSize(new Dimension(100, 50));
 		pen.setFont(new Font("TimesRoman", Font.BOLD, 15));
 
-		JButton but = new JButton("Close");
+		JButton but = new JButton();
+		but.setBorderPainted(false);
+		but.setContentAreaFilled(false);
+		but.setFocusable(false);
+		but.setIcon(new ImageIcon("res/close.png"));
 
 		JTable score = new JTable();
 		score = new JTable(mass, headers);
@@ -435,7 +468,6 @@ public class Main {
 		score.setCellSelectionEnabled(true);
 		JScrollPane scrollBar6 = new JScrollPane(score);
 		scrollBar6.setViewportView(score);
-		
 
 		f.add(pen, BorderLayout.NORTH);
 		f.add(score, BorderLayout.CENTER);
@@ -446,7 +478,7 @@ public class Main {
 			public void actionPerformed(ActionEvent arg0) {
 				f.dispose();
 				f.repaint();
-				menu(login);
+				menu();
 				f.setVisible(true);
 			}
 		});
